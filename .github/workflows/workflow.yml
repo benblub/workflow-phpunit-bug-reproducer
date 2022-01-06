@@ -1,0 +1,29 @@
+name: Workflow Reproducer
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  api_lint_and_test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: actions/checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, imagick
+          coverage: pcov
+      - name: Install Composer dependencies
+        run: |
+          ls -la
+          composer install --no-progress --prefer-dist --optimize-autoloader
+      - name: Run Tests
+        run: |
+          php bin/phpunit
