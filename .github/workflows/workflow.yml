@@ -12,18 +12,14 @@ jobs:
       run:
         working-directory: ./
     steps:
+      - name: actions/checkout
+        uses: actions/checkout@v2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, imagick
           coverage: pcov
-      - name: Install locate
-        run: |
-          sudo apt-get install locate
-      - name: Search composer json
-        run: |
-          locate –i composer.json
       - name: Install Composer dependencies
         run: |
           ls -la
