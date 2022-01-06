@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./foo
+        working-directory: ./
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -18,6 +18,12 @@ jobs:
           php-version: '8.1'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, imagick
           coverage: pcov
+      - name: Install locate
+        run: |
+          sudo apt-get install locate
+      - name: Search composer json
+        run: |
+          locate –i composer.json
       - name: Install Composer dependencies
         run: |
           ls -la
