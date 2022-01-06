@@ -17,7 +17,6 @@ jobs:
           coverage: pcov
       - name: Install Composer dependencies
         run: |
-          cd ..
           ls -la
           composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Run Tests
